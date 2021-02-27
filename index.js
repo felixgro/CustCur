@@ -1,12 +1,5 @@
-/**
- * Initialize a custom cursor.
- *
- * @param {*} options
- */
-const CustCur = (options) => {
-	window.onmousemove = e => {
-		console.dir(e);
-	}
+const CustCur = () => {
+	//
 }
 
-module.exports.CustCur = CustCur;
+module.exports = new CustCur();
