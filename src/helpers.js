@@ -5,14 +5,14 @@ const setEventListeners = (activate, cursorInstance) => {
 		target.onmousemove = cursorInstance._onMove.bind(cursorInstance);
 		target.onmouseover = cursorInstance._onEnter.bind(cursorInstance);
 		target.onmouseout = cursorInstance._onLeave.bind(cursorInstance);
-		target.onclick = cursorInstance._onClick.bind(cursorInstance);
-		target.ondblclick = cursorInstance._onDblClick.bind(cursorInstance);
+		target.onmousedown = cursorInstance._onClick.bind(cursorInstance);
+		target.onmouseup = cursorInstance._onClickRelease.bind(cursorInstance);
 	} else {
 		target.onmousemove = null;
 		target.onmouseout = null;
 		target.onmouseover = null;
 		target.onclick = null;
-		target.ondblclick = null;
+		target.onmouseup = null;
 	}
 
 	let hoverables = [];
@@ -60,8 +60,39 @@ const showDefaultCursor = (el) => {
 	}
 }
 
+const setStyles = () => {
+	const style = document.createElement('style');
+	style.innerHTML = `
+		.cc-cursor {
+			height: 9px;
+			width: 9px;
+			background: #111;
+			transform: translate(-50%, -50%);
+			border-radius: 50%;
+		}
+		.cc-cursor::before {
+			content: '';
+			position: fixed;
+			height: 18px;
+			width: 18px;
+			border-radius: 50%;
+			border: 1px solid #111;
+			transform: translate(-5.5px, -5.5px);
+			transition: transform 60ms ease-out;
+		}
+		.cc-hover::before {
+			transform: translate(-5.5px, -5.5px) scale(1.4);
+		}
+		.cc-click::before {
+			transform: translate(-5.5px, -5.5px) scale(1);
+		}
+	`;
+	document.body.appendChild(style);
+}
+
 module.exports = {
 	setEventListeners,
 	hideDefaultCursor,
-	showDefaultCursor
+	showDefaultCursor,
+	setStyles
 }
