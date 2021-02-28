@@ -4,6 +4,7 @@ module.exports = {
 	hideDefaultCursor: true,
 	cursor: {
 		el: null,
+		tag: 'div',
 		class: 'cc-cursor',
 		hoverClass: 'cc-hover',
 		clickClass: 'cc-click',
