@@ -9,7 +9,7 @@ const {
 
 function CustCur (options = {}) {
 
-	this._options = merge(require('./src/defaults.js'), options);
+	this._options = merge(require('./defaults.js'), options);
 	this._enabled = false;
 
 
