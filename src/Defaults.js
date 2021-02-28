@@ -1,16 +1,12 @@
 module.exports = {
 	target: window,
-	hoverables: ['a', 'button', 'input'],
+	hoverables: ['a', 'button'],
 	hideDefaultCursor: true,
 	cursor: {
-		tag: 'div',
-		size: 18,
-		class: 'custom-cursor',
+		el: null,
+		class: 'cc-cursor',
 		hoverClass: 'cc-hover',
-		shape: 'circle',
-		bg: null,
-		border: '#111',
-		borderWidth: 3,
+		clickClass: 'cc-click',
 	},
 	onMove: (e) => {},
 	onEnter: (e) => {},
@@ -18,5 +14,5 @@ module.exports = {
 	onHover: (e) => {},
 	onUnhover: (e) => {},
 	onClick: (e) => {},
-	onDblClick: (e) => {},
+	onClickRelease: (e) => {}
 }
