@@ -12,17 +12,16 @@ npm i custcur --save
 
 ```javascript
 import CustCur from 'custcur';
-
-const cursor = CustCur({});
-
 // or..
-const cursor = require('custcur')({});
+const CustCur = require('custcur');
+
+const cursor = new CustCur({});
 ```
 
 ## Customization
-You can pass an options object to the CustCur function to overwrite default settings:
+You can pass an options object as a parameter to CustCur's constructor to overwrite default settings:
 ```javascript
-const cursor = CustCur({
+new CustCur({
  // options here..
 })
 ```
