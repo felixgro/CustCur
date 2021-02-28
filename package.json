@@ -1,6 +1,6 @@
 {
   "name": "custcur",
-  "version": "1.0.1",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,5 +11,8 @@
     "url": "https://github.com/felixgro/CustCur.git"
   },
   "author": "Felix Grohs",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
