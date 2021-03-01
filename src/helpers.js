@@ -1,65 +1,75 @@
-const setEventListeners = (activate, cursorInstance) => {
-	let target = cursorInstance._options.target;
-
-	if(activate) {
-		target.onmousemove = cursorInstance._onMove.bind(cursorInstance);
-		target.onmouseover = cursorInstance._onEnter.bind(cursorInstance);
-		target.onmouseout = cursorInstance._onLeave.bind(cursorInstance);
-		target.onmousedown = cursorInstance._onClick.bind(cursorInstance);
-		target.onmouseup = cursorInstance._onClickRelease.bind(cursorInstance);
-	} else {
-		target.onmousemove = null;
-		target.onmouseout = null;
-		target.onmouseover = null;
-		target.onclick = null;
-		target.onmouseup = null;
-	}
-
-	let hoverables = [];
-	if (target == window)
+/**
+ * Converts a given array of css-selectors into an
+ * array of node objects within the specified target.
+ *
+ * @param {String[]|Node[]} array
+ * @param {Node|window} target
+ * @return {Node[]}
+ */
+const toNodes = (array, target) => {
+	if (target === window)
 		target = document.querySelector('html');
 
-	cursorInstance._options.hoverables.forEach(hov => {
-		if(typeof hov == 'string') {
-			hoverables.push(...target.querySelectorAll(hov));
+	let nodes = [];
+
+	array.forEach(n => {
+		if(n instanceof Node) {
+			nodes.push(n);
 		} else {
-			hoverables.push(hov);
+			nodes.push(...target.querySelectorAll(n));
 		}
-	})
-
-	hoverables.forEach(el => {
-		el.onmouseover = cursorInstance._onHover.bind(cursorInstance)
-		el.onmouseout = cursorInstance._onUnhover.bind(cursorInstance)
 	});
-	cursorInstance._hoverElements = hoverables;
 
-	return cursorInstance;
+	return nodes;
 }
 
-const hideDefaultCursor = (el) => {
-	const target = el == window ? document.querySelector('html') : el;
 
-	target.style.cursor = 'none';
+/**
+ * Apply/Remove necessary eventlisteneres on a
+ * given custcur instance.
+ *
+ * @param {CustCur} cursorInstance
+ * @param {Boolean} state
+ */
+const toggleEventListeners = (cursorInstance, state) => {
+	const target = cursorInstance._options.target;
+
+	target.onmousemove = state ? cursorInstance._onMove.bind(cursorInstance) : null;
+	target.onmouseover = state ? cursorInstance._onEnter.bind(cursorInstance) : null;
+	target.onmouseout = state ? cursorInstance._onLeave.bind(cursorInstance) : null;
+	target.onmousedown = state ? cursorInstance._onClick.bind(cursorInstance) : null;
+	target.onmouseup = state ? cursorInstance._onClickRelease.bind(cursorInstance) : null;
+
+	cursorInstance._hoverables.forEach(el => {
+		el.onmouseover = state ? cursorInstance._onHover.bind(cursorInstance) : null;
+		el.onmouseout = state ? cursorInstance._onUnhover.bind(cursorInstance) : null;
+	});
+}
+
+
+/**
+ * Set visibility of default cursor to
+ * specified state.
+ *
+ * @param {Node} el
+ * @param {Boolean} state
+ */
+const toggleDefaultCursor = (el, state) => {
+	const target = (el == window) ? document.querySelector('html') : el;
+
+	target.style.cursor = state ? 'auto' : 'none';
 
 	if (target.childNodes.length > 0) {
 		target.childNodes.forEach(n => {
-			if (n.nodeType == 1) hideDefaultCursor(n);
+			if (n.nodeType == 1) toggleDefaultCursor(n, state);
 		})
 	}
 }
 
-const showDefaultCursor = (el) => {
-	const target = el == window ? document.querySelector('html') : el;
 
-	target.style.cursor = 'auto'
-
-	if (target.childNodes.length > 0) {
-		target.childNodes.forEach(n => {
-			if (n.nodeType == 1) showDefaultCursor(n);
-		})
-	}
-}
-
+/**
+ * TODO: Import Styles from external css file.
+ */
 const setStyles = () => {
 	const style = document.createElement('style');
 	style.innerHTML = `
@@ -91,8 +101,8 @@ const setStyles = () => {
 }
 
 module.exports = {
-	setEventListeners,
-	hideDefaultCursor,
-	showDefaultCursor,
-	setStyles
+	toggleEventListeners,
+	toggleDefaultCursor,
+	setStyles,
+	toNodes
 }
