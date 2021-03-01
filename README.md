@@ -1,35 +1,59 @@
 # CustCur
 
-A lightweight, highly customizable custom cursor framework for the web.
+A lightweight, highly customizable cursor framework for the web.
 
-## Installation & Usage
-1. Install using npm:
+## Installation
+#### Via CDN:
+```html
+<script src="https://cdn.jsdelivr.net/npm/custcur@0.1.0">
 ```
+#### Via NPM:
+1. Install via terminal:
+```shell
 npm i custcur --save
 ```
 
 2. Initialize a custom cursor with default options:
-
 ```javascript
-import CustCur from 'custcur';
+const CustCur = require('custcur');
 
-const cursor = new CustCur({});
+const cursor = new CustCur();
 ```
 
-## Customization
-You can pass an options object as a parameter to CustCur's constructor to overwrite default settings:
+## Usage
+You can pass options as a parameter to the constructor to overwrite defaults:
 ```javascript
-new CustCur({
- // options here..
-})
+const options = {
+	target: document.querySelector('.section-1'),
+	tag: 'div',
+	classes: {
+		base: 'cursor',
+		hover: 'cursor-hover',
+		click: 'cursor-click'
+	}
+}
+
+const cursor = new CustCur(options)
 ```
+
+If a custom cursor node element is already present in your DOM you can assign it via the `node` property:
+```javascript
+const cursor = new CustCur({
+	node: document.querySelector('.custom-cursor')
+});
+```
+The `tag` and `classes.base` parameters will get totally ignored if a node is present. Nevertheless CustCur will assign the specified click and hover class when the specific event fires.
 
 ### Available Options
 | Property | Type | Description | Default |
 | --- | --- | --- | --- |
-| `target` | Node | Target Element for custom cursor. | `window` |
-| `hoverables` | Array | Array of css-selectors or node elements within the specified target that should trigger the cursor's hover state. | `['a', 'button']` |
-| `hideDefaultCursor` | Boolean | Determine if the system's default cursor should be hidden. | `true` |
+| `target` | Node | Parent Element for custom cursor. | `window` |
+| `node` | Node? | Custom cursor node element. If not present, CusCur will create a node of the specified tag and assign the defined classname. | `null` |
+| `hoverables` | Array | Array of css-selectors or node elements within the specified target that should trigger the cursor's hover event. | `['a', 'button']` |
+| `hideDefault` | Boolean | Determine if the system's default cursor should be hidden when inside of specified target. | `true` |
+| `classes.base` | String | Specifies the cursor's classname. |`'cc-cursor'` |
+| `classes.hover` | String | Specifies a classname for the cursor's hover state. | `'cc-hover'` |
+| `classes.click` | String | Specifies a classname for the cursor's click state.  | `'cc-click'` |
 | `onEnter` | Method | Listen for `mouseover` event on specified target. | `(e)=>{}` |
 | `onLeave` | Method | Listen for `mouseout` event on specified target. | `(e)=>{}` |
 | `onMove` | Method | Listen for `mousemove` event on specified target. | `(e)=>{}` |
@@ -37,16 +61,13 @@ new CustCur({
 | `onClickRelease` | Method | Listen for `mouseup` event within specified target. | `(e)=>{}` |
 | `onHover` | Method | Listen for `mouseover` event on all specified hoverables. | `(e)=>{}` |
 | `onUnhover` | Method | Listen for `mouseout` event on all specified hoverables. | `(e)=>{}` |
-| `cursor.el` | Node? | HTML Element for custom cursor. If property is `null` custcur will create a `div` element with the specified classname. | `null` |
-| `cursor.class` | String | Specifies the cursor's classname. |`'cc-cursor'` |
-| `cursor.hoverClass` | String | Specifies a classname for the cursor's hover state. | `'cc-hover'` |
-| `cursor.clickClass` | String | Specifies a classname for the cursor's click state.  | `'cc-click'` |
 
-<small align="right">...? Property can be of type `null`. </small>
+<small align="right">...? type can be `null`. </small>
 
 ### Available Methods
 | Method | Description |
 | --- | --- |
-| `cursor.enable()` | enable custom cursor at runtime. |
-| `cursor.disable()` | disable custom cursor at runtime. |
+| `cursor.enable()` | Enable custom cursor along with all event listeners. |
+| `cursor.disable()` | Disable custom cursor and remove all event listeners. |
+| `cursor.toggle()` | Toggle between enabled and disabled state. |
 
