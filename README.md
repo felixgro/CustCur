@@ -12,8 +12,6 @@ npm i custcur --save
 
 ```javascript
 import CustCur from 'custcur';
-// or..
-const CustCur = require('custcur');
 
 const cursor = new CustCur({});
 ```
