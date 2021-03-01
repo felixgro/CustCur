@@ -1,14 +1,14 @@
 module.exports = {
 	target: window,
-	hoverables: ['a', 'button'],
-	hideDefaultCursor: true,
-	cursor: {
-		el: null,
-		tag: 'div',
-		class: 'cc-cursor',
-		hoverClass: 'cc-hover',
-		clickClass: 'cc-click',
+	node: null,
+	tag: 'div',
+	classes: {
+		base: 'cc-cursor',
+		hover: 'cc-hover',
+		click: 'cc-click',
 	},
+	hoverables: ['a', 'button'],
+	hideDefault: true,
 	onMove: (e) => {},
 	onEnter: (e) => {},
 	onLeave: (e) => {},
