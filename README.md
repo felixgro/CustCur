@@ -1,5 +1,5 @@
 # custcur
-[img](https://img.shields.io/npm/v/custcur?color=1c1c1c)
+![npm](https://img.shields.io/npm/v/custcur?color=1c1c1c) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/felixgro/custcur?color=1c1c1c&label=size)
 A lightweight, highly customizable cursor framework for the web.
 
 ## Installation
