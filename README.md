@@ -1,13 +1,13 @@
-# CustCur
-
+# custcur
+[img](https://img.shields.io/npm/v/custcur?color=1c1c1c)
 A lightweight, highly customizable cursor framework for the web.
 
 ## Installation
-#### Via CDN:
+#### Via CDN
 ```html
 <script src="https://cdn.jsdelivr.net/npm/custcur@0.1.0">
 ```
-#### Via NPM:
+#### Via NPM
 1. Install via terminal:
 ```shell
 npm i custcur --save
@@ -36,13 +36,14 @@ const options = {
 const cursor = new CustCur(options)
 ```
 
-If a custom cursor node element is already present in your DOM you can assign it via the `node` property:
+You can also assign an existing html element as your custom cursor node:
 ```javascript
 const cursor = new CustCur({
+	target: window,
 	node: document.querySelector('.custom-cursor')
 });
 ```
-The `tag` and `classes.base` parameters will get totally ignored if a node is present. Nevertheless CustCur will assign the specified click and hover class when the specific event fires.
+The `tag` and `classes.base` parameters will be totally ignored if a node is present. Nevertheless the specified node will get the defined classes when an related event occured within the target.
 
 ### Available Options
 | Property | Type | Description | Default |
