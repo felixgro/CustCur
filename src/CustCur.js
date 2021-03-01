@@ -16,14 +16,6 @@ function CustCur (options = {}) {
 
 
 	/**
-	 * Toggle enabled state of custom cursor instance.
-	 *
-	 * @return {CustCur}
-	 */
-	this.toggle = () => this._enabled ? this.disable() : this.enable();
-
-
-	/**
 	 * Enable custom cursor instance at runtime.
 	 *
 	 * @return {CustCur}
@@ -53,12 +45,20 @@ function CustCur (options = {}) {
 		this._enabled = false;
 
 		toggleEventListeners(this, false);
-		toggleDefaultCursor(this._options.target, true);
+		if (this._options.hideDefault) toggleDefaultCursor(this._options.target, true);
 
 		this._toggleVisibility(false);
 
 		return this;
 	}
+
+
+	/**
+	 * Toggle enabled state of custom cursor instance.
+	 *
+	 * @return {CustCur}
+	 */
+	this.toggle = () => this._enabled ? this.disable() : this.enable();
 
 
 	/**
