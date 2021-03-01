@@ -43,6 +43,7 @@ new CustCur({
 | `cursor.class` | String | Specifies the cursor's classname. |`'cc-cursor'` |
 | `cursor.hoverClass` | String | Specifies a classname for the cursor's hover state. | `'cc-hover'` |
 | `cursor.clickClass` | String | Specifies a classname for the cursor's click state.  | `'cc-click'` |
+
 <small align="right">...? Property can be of type `null`. </small>
 
 ### Available Methods
