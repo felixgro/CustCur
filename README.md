@@ -6,7 +6,7 @@ A lightweight, highly customizable cursor framework for the web.
 ## Installation
 #### Via CDN
 ```html
-<script src="https://cdn.jsdelivr.net/npm/custcur@0.1.0">
+<script src="https://unpkg.com/custcur@0.1.4/dist/bundle.js>
 ```
 #### Via NPM/Yarn
 1. Install in terminal:
