@@ -2,16 +2,26 @@
   "name": "custcur",
   "version": "0.1.0",
   "description": "A lightweight, highly customizable custom cursor framework for the web.",
+  "keywords": ["custom", "cursor", "mouse", "events", "microframework"],
+  "homepage": "https://github.com/felixgro/custcur.git",
+  "license": "MIT",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": {
+    "name": "Felix Grohs",
+    "email": "me@felixgrohs.at",
+    "url": "https://felixgrohs.dev"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/felixgro/CustCur.git"
+    "url": "https://github.com/felixgro/custcur.git"
   },
-  "author": "Felix Grohs",
-  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felixgro/custcur/issues",
+    "email": "me@felixgrohs.at"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "lodash": "^4.17.21"
   }
