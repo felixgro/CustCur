@@ -1,6 +1,7 @@
 const CustCur = require('./src/CustCur');
-const { setStyles } = require('./src/helpers');
 
+// Todo: import as css file.
+const { setStyles } = require('./src/styles');
 setStyles();
 
 module.exports = CustCur;

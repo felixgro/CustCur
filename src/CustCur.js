@@ -1,13 +1,21 @@
+const merge = require('lodash.merge');
+const cloneDeep = require('lodash.clonedeep');
+
 const DEFAULTS = require('./defaults');
-const { merge, cloneDeep } = require('lodash');
 
 const {
-	toggleEventListeners,
 	toggleDefaultCursor,
-	toNodes
-} = require('./helpers');
+	isTouchDevice,
+	containsChild,
+	toNodes,
+} = require('./utils');
 
 
+/**
+ * Initialize a custom cursor.
+ *
+ * @param {Object} options
+ */
 function CustCur (options = {}) {
 
 	this._enabled = false;
@@ -21,14 +29,17 @@ function CustCur (options = {}) {
 	 * @return {CustCur}
 	 */
 	this.enable = () => {
-		if(this._enabled) return;
+		if(this._enabled || isTouchDevice())
+			return;
+
 		this._enabled = true;
 
-		toggleEventListeners(this, true);
-		if (this._options.hideDefault) toggleDefaultCursor(this._options.target, false);
-
-		if(!this._node) this._createCursor();
+		this._createCursor();
+		this._toggleEventListeners(true);
 		this._toggleVisibility(false);
+
+		if (this._options.hideDefault)
+			toggleDefaultCursor(this._options.target, false);
 
 		return this;
 	}
@@ -40,14 +51,16 @@ function CustCur (options = {}) {
 	 * @return {CustCur}
 	 */
 	this.disable = () => {
-		if(!this._enabled) return;
+		if(!this._enabled)
+			return;
 
 		this._enabled = false;
 
-		toggleEventListeners(this, false);
-		if (this._options.hideDefault) toggleDefaultCursor(this._options.target, true);
-
+		this._toggleEventListeners(false);
 		this._toggleVisibility(false);
+
+		if (this._options.hideDefault)
+			toggleDefaultCursor(this._options.target, true);
 
 		return this;
 	}
@@ -62,50 +75,9 @@ function CustCur (options = {}) {
 
 
 	/**
-	 * Proxy mouseover event from target.
-	 *
-	 * @param {MouseEvent} e
-	 */
-	this._onEnter = (e) => {
-		if(!this._enabled) return;
-		this._toggleVisibility(true);
-
-		this._options.onEnter(e);
-	}
-
-
-	/**
-	 * Listen for mouseover event on specified target.
-	 *
-	 * @param {function} callable
-	 */
-	this.onEnter = (callable) => this._options.onEnter = callable;
-
-
-	/**
-	 * Proxy mouseout event from target.
-	 *
-	 * @param {MouseEvent} e
-	 */
-	this._onLeave = (e) => {
-		if(!this._enabled) return;
-
-		this._toggleVisibility(false);
-
-		this._options.onLeave(e);
-	}
-
-
-	/**
-	 * Listen for mouseout event within target.
-	 *
-	 * @param {function} callable
-	 */
-	this.onLeave = (callable) => this._options.onLeave = callable;
-
-
-	/**
-	 * Proxy mousemove event from target.
+	 * Move node element to current cursor position
+	 * and proxy the mousemove event withing the target to
+	 * the specified onMove() callback method.
 	 *
 	 * @param {MouseEvent} e
 	 */
@@ -121,20 +93,73 @@ function CustCur (options = {}) {
 
 
 	/**
-	 * Listen for mousemove event within specified target.
+	 * Define a callback for cursor-move event within specified target.
 	 *
-	 * @param {function} callable
+	 * @param {function} callback
 	 */
-	this.onMove = (callable) => this._options.onMove = callable;
+	this.onMove = (callback) => this._options.onMove = callback;
 
 
 	/**
-	 * Proxy mouseover event from target.
+	 * Set the cursors visibility to true and proxy
+	 * the mouseover event from target to the
+	 * specified onEnter() callback method.
+	 *
+	 * @param {MouseEvent} e
+	 */
+	this._onEnter = (e) => {
+		if(!this._enabled || containsChild(this._options.target, e.fromElement))
+			return;
+
+		this._toggleVisibility(true);
+
+		this._options.onEnter(e);
+	}
+
+
+	/**
+	 * Define a callback for the cursor-enter event of specified target.
+	 *
+	 * @param {function} callback
+	 */
+	this.onEnter = (callback) => this._options.onEnter = callback;
+
+
+	/**
+	 * Set the cursors visibility to false and proxy
+	 * the mouseout event from target to
+	 * the specified onLeave() callback method.
+	 *
+	 * @param {MouseEvent} e
+	 */
+	this._onLeave = (e) => {
+		if(!this._enabled || containsChild(this._options.target, e.toElement))
+			return;
+
+		this._toggleVisibility(false);
+
+		this._options.onLeave(e);
+	}
+
+
+	/**
+	 * Define a callback for the cursor-leave event of specified target.
+	 *
+	 * @param {function} callback
+	 */
+	this.onLeave = (callback) => this._options.onLeave = callback;
+
+
+	/**
+	 * Add defined hover classname to cursor node
+	 * and proxy the mouseover event from hoverables to
+	 * the specified onHover() callback method.
 	 *
 	 * @param {MouseEvent} e
 	 */
 	this._onHover = (e) => {
-		if(!this._enabled) return;
+		if(!this._enabled)
+			return;
 
 		this._node.classList.add(this._options.classes.hover);
 
@@ -143,15 +168,17 @@ function CustCur (options = {}) {
 
 
 	/**
-	 * Listen for mouseover event within specified target.
+	 * Define a callback for the cursor-hover event on all specified hoverables.
 	 *
-	 * @param {function} callable
+	 * @param {function} callback
 	 */
-	this.onHover = (callable) => this._options.onHover = callable;
+	this.onHover = (callback) => this._options.onHover = callback;
 
 
 	/**
-	 * Proxy mouseout event from target.
+	 * Remove defined hover classname from cursor node
+	 * and proxy the mouseout event from hoverables to
+	 * the specified onUnhover() callback method.
 	 *
 	 * @param {MouseEvent} e
 	 */
@@ -164,15 +191,17 @@ function CustCur (options = {}) {
 	}
 
 	/**
-	 * Listen for mouseout event from specified target.
+	 * Define a callback for the cursor-unhover event on all specified hoverables.
 	 *
-	 * @param {function} callable
+	 * @param {function} callback
 	 */
-	this.onUnhover = (callable) => this._options.onUnhover = callable;
+	this.onUnhover = (callback) => this._options.onUnhover = callback;
 
 
 	/**
-	 * Proxy mousedown events within target.
+	 * Add defined click classname to cursor node
+	 * and proxy the mousedown event within target to
+	 * the specified onClick() callback method.
 	 *
 	 * @param {MouseEvent} e
 	 */
@@ -186,15 +215,17 @@ function CustCur (options = {}) {
 
 
 	/**
-	 * Listen for mousedown events withing specified target.
+	 * Define a callback for the cursor-click event within specified target.
 	 *
-	 * @param {function} callable
+	 * @param {function} callback
 	 */
-	this.onClick = (callable) => this._options.onClick = callable;
+	this.onClick = (callback) => this._options.onClick = callback;
 
 
 	/**
-	 * Proxy mouseup events within target.
+	 * Remove defined click classname from cursor node
+	 * and proxy the mouseup event within target to
+	 * the specified onClickRelease() callback method.
 	 *
 	 * @param {MouseEvent} e
 	 */
@@ -208,15 +239,15 @@ function CustCur (options = {}) {
 
 
 	/**
-	 * Listen for mouseup events withing specified target.
+	 * Define a callback for the cursor-clickrelease event within specified target.
 	 *
-	 * @param {function} callable
+	 * @param {function} callback
 	 */
-	this.onClickRelease = (callable) => this._options.onClickRelease = callable;
+	this.onClickRelease = (callback) => this._options.onClickRelease = callback;
 
 
 	/**
-	 * Toggle visibility of cursor.
+	 * Toggle the visibility of specified cursor node.
 	 *
 	 * @param {Boolean} isVisible
 	 */
@@ -225,12 +256,15 @@ function CustCur (options = {}) {
 		this._node.style.opacity = isVisible ? 1 : 0;
 	}
 
+
 	/**
-	 * Creates the cursor node if necessary and assigns
-	 * important css rules.
+	 * Create a new cursor node if none present.
 	 *
+	 * @return {Node}
 	 */
 	this._createCursor = () => {
+		if(this._node) return;
+
 		this._node = this._options.node ?? document.createElement(this._options.tag);
 
 		Object.assign(this._node.style, {
@@ -242,6 +276,30 @@ function CustCur (options = {}) {
 			this._node.classList.add(this._options.classes.base);
 			document.body.appendChild(this._node);
 		}
+
+		return this._node;
+	}
+
+
+	/**
+	 * Attach or detach necessary eventlisteners on specified
+	 * target and hoverables.
+	 *
+	 * @param {Boolean} state
+	 */
+	this._toggleEventListeners = (state) => {
+		const target = this._options.target;
+
+		target.onmousemove = state ? this._onMove.bind(this) : null;
+		target.onmouseover = state ? this._onEnter.bind(this) : null;
+		target.onmouseout = state ? this._onLeave.bind(this) : null;
+		target.onmousedown = state ? this._onClick.bind(this) : null;
+		target.onmouseup = state ? this._onClickRelease.bind(this) : null;
+
+		this._hoverables.forEach(hov => {
+			hov.onmouseover = state ? this._onHover.bind(this) : null;
+			hov.onmouseout = state ? this._onUnhover.bind(this) : null;
+		});
 	}
 
 
