@@ -22,7 +22,7 @@ const cursor = new CustCur()
 ```
 
 ## Usage
-You can pass options as a parameter to the constructor to overwrite defaults:
+You can pass an options object as a parameter to the constructor to overwrite defaults:
 ```javascript
 const options = {
 	target: document.querySelector('.section-1'),
