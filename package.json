@@ -1,6 +1,6 @@
 {
   "name": "custcur",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A lightweight, highly customizable custom cursor framework for the web.",
   "homepage": "https://github.com/felixgro/custcur.git",
   "license": "MIT",
@@ -17,6 +17,7 @@
   ],
   "main": "index.js",
   "scripts": {
+    "build": "node_modules/.bin/webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,5 +31,9 @@
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
     "lodash.merge": "^4.6.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0"
   }
 }
