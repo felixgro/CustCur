@@ -8,10 +8,11 @@ A lightweight, highly customizable microframework for custom cursors on the web.
 ```html
 <script src="https://cdn.jsdelivr.net/npm/custcur@0.1.0">
 ```
-#### Via NPM
+#### Via NPM/Yarn
 1. Install in terminal:
 ```shell
 npm i custcur --save
+yarn add custcur
 ```
 
 2. Initialize a custom cursor with default options:
