@@ -1,7 +1,7 @@
 # custcur
 ![npm](https://img.shields.io/npm/v/custcur?color=1c1c1c) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/felixgro/custcur?color=1c1c1c&label=size)
 
-A lightweight, highly customizable cursor framework for the web.
+A lightweight, highly customizable microframework for custom cursors on the web.
 
 ## Installation
 #### Via CDN
