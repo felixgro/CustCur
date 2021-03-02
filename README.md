@@ -16,9 +16,9 @@ npm i custcur --save
 
 2. Initialize a custom cursor with default options:
 ```javascript
-const CustCur = require('custcur');
+const CustCur = require('custcur')
 
-const cursor = new CustCur();
+const cursor = new CustCur()
 ```
 
 ## Usage
@@ -42,7 +42,7 @@ You can also assign an existing html element as your custom cursor node:
 const cursor = new CustCur({
 	target: window,
 	node: document.querySelector('.custom-cursor')
-});
+})
 ```
 The `tag` and `classes.base` parameters will be totally ignored if a node is present. Nevertheless the specified node will get the defined classes when an related event occured within the target.
 
