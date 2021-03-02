@@ -44,7 +44,7 @@ const cursor = new CustCur({
 	node: document.querySelector('.custom-cursor')
 })
 ```
-The `tag` and `classes.base` parameters will be totally ignored if a node is present. Nevertheless the specified node will get the defined classes when an related event occured within the target.
+The `tag` and `classes.base` parameters will get completely ignored if a node is present. Nevertheless the specified node will get the defined event classes when an related event occures within the defined target.
 
 ### Available Options
 | Property | Type | Description | Default |
