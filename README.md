@@ -74,12 +74,12 @@ The `tag` and `classes.base` parameters will get completely ignored if a node is
 | `cursor.disable()` | Disable custom cursor and remove all event listeners. |
 | `cursor.toggle()` | Toggle between enabled and disabled state. |
 | **Events** |  |
-| `cursor.onEnter()` | Register a callback function for `mouseover` event on specified target. |
-| `cursor.onLeave()` | Register a callback function for `mouseout` event on specified target. |
-| `cursor.onMove()` |Register a callback function for `mousemove` event on specified target. |
-| `cursor.onClick()` | Register a callback function for `mousedown` event within specified target. |
-| `cursor.onClickRelease()` | Register a callback function for `mouseup` event within specified target. |
-| `cursor.onHover()` | Register a callback function for `mouseover` event on all specified hoverables. |
-| `cursor.onUnhover()` | Register a callback function for `mouseout` event on all specified hoverables. |
+| `cursor.onEnter(fn)` | Register a callback function for `mouseover` event on specified target. |
+| `cursor.onLeave(fn)` | Register a callback function for `mouseout` event on specified target. |
+| `cursor.onMove(fn)` |Register a callback function for `mousemove` event on specified target. |
+| `cursor.onClick(fn)` | Register a callback function for `mousedown` event within specified target. |
+| `cursor.onClickRelease(fn)` | Register a callback function for `mouseup` event within specified target. |
+| `cursor.onHover(fn)` | Register a callback function for `mouseover` event on all specified hoverables. |
+| `cursor.onUnhover(fn)` | Register a callback function for `mouseout` event on all specified hoverables. |
 
 Each event callback will overwrite it's related event method from the initial options object.
