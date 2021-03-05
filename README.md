@@ -6,7 +6,7 @@ A lightweight, highly customizable cursor framework for the web.
 ## Installation
 #### Via CDN
 ```html
-<script src="https://unpkg.com/custcur@0.1.5/dist/bundle.js"></script>
+<script src="https://unpkg.com/custcur@0.1.6/dist/bundle.js"></script>
 ```
 #### Via NPM/Yarn
 1. Install in terminal:
@@ -17,7 +17,7 @@ yarn add custcur
 
 2. Initialize a custom cursor with default options:
 ```javascript
-const CustCur = require('custcur')
+import CustCur from 'custcur'
 
 const cursor = new CustCur()
 ```
