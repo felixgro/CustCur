@@ -1,5 +1,5 @@
-import DEFAULTS from './defaults';
 import * as utils from './utils';
+import defaults from './defaults';
 
 import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
@@ -13,7 +13,7 @@ class CustCur {
 	 */
 	constructor(options = {}) {
 		this._enabled = false;
-		this._options = merge(cloneDeep(DEFAULTS), options);
+		this._options = merge(cloneDeep(defaults), options);
 		this._hoverables = utils.toNodes(this._options.hoverables, this._options.target);
 
 		this._node = this._options.node ?? document.createElement(this._options.tag);
