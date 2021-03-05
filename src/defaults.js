@@ -1,13 +1,13 @@
-module.exports = {
+export default {
 	target: window,
 	node: null,
-	tag: 'div',
+	tag: "div",
 	classes: {
-		base: 'cc-cursor',
-		hover: 'cc-hover',
-		click: 'cc-click',
+		base: "cc-cursor",
+		hover: "cc-hover",
+		click: "cc-click",
 	},
-	hoverables: ['a', 'button'],
+	hoverables: ["a", "button"],
 	hideDefault: true,
 	onMove: (e) => {},
 	onEnter: (e) => {},
@@ -15,5 +15,5 @@ module.exports = {
 	onHover: (e) => {},
 	onUnhover: (e) => {},
 	onClick: (e) => {},
-	onClickRelease: (e) => {}
-}
+	onClickRelease: (e) => {},
+};

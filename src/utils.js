@@ -7,22 +7,20 @@
  * @return {Node[]}
  */
 const toNodes = (array, target) => {
-	if (target === window)
-		target = document.querySelector('html');
+  if (target === window) target = document.querySelector('html');
 
-	let nodes = [];
+  let nodes = [];
 
-	array.forEach(n => {
-		if(n instanceof Node) {
-			nodes.push(n);
-		} else {
-			nodes.push(...target.querySelectorAll(n));
-		}
-	});
+  array.forEach((n) => {
+    if (n instanceof Node) {
+      nodes.push(n);
+    } else {
+      nodes.push(...target.querySelectorAll(n));
+    }
+  });
 
-	return nodes;
-}
-
+  return nodes;
+};
 
 /**
  * Check if client is using a touch device.
@@ -30,9 +28,8 @@ const toNodes = (array, target) => {
  * @return {Boolean}
  */
 const isTouchDevice = () => {
-	return window.matchMedia("(pointer: coarse)").matches;
-}
-
+  return window.matchMedia('(pointer: coarse)').matches;
+};
 
 /**
  * Check if a parentnode contains, or is equal to,
@@ -43,10 +40,9 @@ const isTouchDevice = () => {
  * @return {Boolean}
  */
 const containsChild = (parent, child) => {
-	parent = parent === window ? document.querySelector('html') : parent;
-	return child === parent || parent.contains(child);
-}
-
+  parent = parent === window ? document.querySelector('html') : parent;
+  return child === parent || parent.contains(child);
+};
 
 /**
  * Set visibility of the system's default cursor to an
@@ -56,21 +52,15 @@ const containsChild = (parent, child) => {
  * @param {Boolean} state
  */
 const toggleDefaultCursor = (parent, state) => {
-	const target = (parent == window) ? document.querySelector('html') : parent;
+  const target = parent == window ? document.querySelector('html') : parent;
 
-	target.style.cursor = state ? 'auto' : 'none';
+  target.style.cursor = state ? 'auto' : 'none';
 
-	if (target.childNodes.length > 0) {
-		target.childNodes.forEach(n => {
-			if (n.nodeType == 1) toggleDefaultCursor(n, state);
-		})
-	}
-}
+  if (target.childNodes.length > 0) {
+    target.childNodes.forEach((n) => {
+      if (n.nodeType == 1) toggleDefaultCursor(n, state);
+    });
+  }
+};
 
-
-module.exports = {
-	toNodes,
-	isTouchDevice,
-	containsChild,
-	toggleDefaultCursor,
-}
+export { toNodes, isTouchDevice, containsChild, toggleDefaultCursor };
