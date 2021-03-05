@@ -7,6 +7,15 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js',
 		libraryTarget: 'var',
-		library: 'CustCur'
-	}
-}
+		library: 'CustCur',
+	},
+	module: {
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: 'babel-loader',
+			},
+		],
+	},
+};
