@@ -62,8 +62,8 @@ The `tag` and `classes.base` parameters will get completely ignored if a node is
 | `onMove` | Method | Listen for `mousemove` event on specified target. | `(e)=>{}` |
 | `onClick` | Method | Listen for `mousedown` event within specified target. | `(e)=>{}` |
 | `onClickRelease` | Method | Listen for `mouseup` event within specified target. | `(e)=>{}` |
-| `onHover` | Method | Listen for `mouseover` event on all specified hoverables. | `(e)=>{}` |
-| `onUnhover` | Method | Listen for `mouseout` event on all specified hoverables. | `(e)=>{}` |
+| `onHoverEnter` | Method | Listen for `mouseover` event on all specified hoverables. | `(e)=>{}` |
+| `onHoverLeave` | Method | Listen for `mouseout` event on all specified hoverables. | `(e)=>{}` |
 
 <small align="right">...? type can be `null`. </small>
 
@@ -80,7 +80,7 @@ The `tag` and `classes.base` parameters will get completely ignored if a node is
 | `cursor.onMove(fn)` |Register a callback function for `mousemove` event on specified target. |
 | `cursor.onClick(fn)` | Register a callback function for `mousedown` event within specified target. |
 | `cursor.onClickRelease(fn)` | Register a callback function for `mouseup` event within specified target. |
-| `cursor.onHover(fn)` | Register a callback function for `mouseover` event on all specified hoverables. |
-| `cursor.onUnhover(fn)` | Register a callback function for `mouseout` event on all specified hoverables. |
+| `cursor.onHoverEnter(fn)` | Register a callback function for `mouseover` event on all specified hoverables. |
+| `cursor.onHoverLeave(fn)` | Register a callback function for `mouseout` event on all specified hoverables. |
 
 Each event callback will overwrite it's related event method from the initial options object.
