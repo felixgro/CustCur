@@ -2,7 +2,12 @@
   "name": "custcur",
   "version": "0.1.7",
   "description": "A lightweight, highly customizable custom cursor framework for the web.",
-  "keywords": ["front-end", "cursor", "mouse", "events"],
+  "keywords": [
+    "front-end",
+    "cursor",
+    "mouse",
+    "events"
+  ],
   "homepage": "https://github.com/felixgro/custcur.git",
   "license": "MIT",
   "author": {
@@ -28,10 +33,10 @@
     "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
-    "jest": "^26.6.3",
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.9",
     "babel-loader": "^8.2.2",
+    "jest": "^26.6.3",
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0"
   },
