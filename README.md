@@ -7,6 +7,10 @@ A lightweight, highly customizable cursor framework for the web.
 #### Via CDN
 ```html
 <script src="https://unpkg.com/custcur@0.1.6/dist/bundle.js"></script>
+
+<script>
+	const cursor = new CustCur()
+</script>
 ```
 #### Via NPM/Yarn
 1. Install in terminal:
