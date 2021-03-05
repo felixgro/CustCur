@@ -281,4 +281,4 @@ function CustCur(options = {}) {
   return this.enable();
 }
 
-module.exports = CustCur;
+export default CustCur;

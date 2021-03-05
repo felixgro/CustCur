@@ -1,7 +1,7 @@
-module.exports.setStyles = () => {
-	const style = document.createElement('style');
+export default () => {
+  const style = document.createElement('style');
 
-	style.innerHTML = `
+  style.innerHTML = `
 		.cc-cursor {
 			height: 9px;
 			width: 9px;
@@ -27,5 +27,5 @@ module.exports.setStyles = () => {
 		}
 	`;
 
-	document.body.appendChild(style);
-}
+  document.body.appendChild(style);
+};
