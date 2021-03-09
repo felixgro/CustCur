@@ -16,7 +16,7 @@ class CustCur {
 		this._options = merge(cloneDeep(defaults), options);
 		this._hoverables = utils.toNodes(this._options.hoverables, this._options.target);
 
-		this._node = this._options.node ?? document.createElement(this._options.tag);
+		this._node = this._options.node ? this._options.node : document.createElement(this._options.tag);
 
 		Object.assign(this._node.style, {
 			position: 'fixed',
