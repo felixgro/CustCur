@@ -52,6 +52,7 @@ const isTouchDevice = () => {
  * @return {Boolean}
  */
 const containsChild = (parent, child) => {
+	if (!parent) return false;
 	parent = parent === window ? document.querySelector('html') : parent;
 	return child === parent || parent.contains(child);
 };
