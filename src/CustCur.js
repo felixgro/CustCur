@@ -242,7 +242,7 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onHoverEnter(e) {
-		if (!this._enabled) return;
+		if (!this._enabled || utils.isChildOfNodes(this.hoverables, e.fromElement)) return;
 
 		this._node.classList.add(this._options.classes.hover);
 
@@ -257,7 +257,7 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onHoverLeave(e) {
-		if (!this._enabled) return;
+		if (!this._enabled || utils.isChildOfNodes(this.hoverables, e.toElement)) return;
 
 		this._node.classList.remove(this._options.classes.hover);
 
