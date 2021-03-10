@@ -1,2 +1,10 @@
-.tryout/
 .parcel-cache/
+.github/
+.tryout/
+
+.gitignore
+babel.config.json
+webpack.config.js
+
+tests/
+src/

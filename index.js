@@ -1,4 +1,4 @@
-import CustCur from './src/CustCur';
+import CustCur from './dist/src/CustCur';
 
 // Todo: import as css file.
 import SetStyles from './src/styles';
