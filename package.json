@@ -17,7 +17,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "babel --presets=@babel/env -d dist/src src",
+    "build": "node_modules/.bin/babel --presets=@babel/env -d dist/src src",
     "bundle": "node_modules/.bin/webpack",
     "prepublish": "npm run build && npm run bundle",
     "test": "node_modules/.bin/jest"
@@ -35,6 +35,7 @@
     "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.13.10",
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.9",
     "babel-loader": "^8.2.2",

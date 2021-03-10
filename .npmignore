@@ -2,9 +2,9 @@
 .github/
 .tryout/
 
+tests/
+src/
+
 .gitignore
 babel.config.json
 webpack.config.js
-
-tests/
-src/
