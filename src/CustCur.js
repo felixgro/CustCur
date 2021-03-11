@@ -18,7 +18,7 @@ class CustCur {
 
 		this._node = this._options.node ? this._options.node : document.createElement(this._options.tag);
 
-		this._hoveringElement = null;
+		this.hoveringNode = null;
 
 		Object.assign(this._node.style, {
 			position: 'fixed',
@@ -186,6 +186,11 @@ class CustCur {
 
 		this._toggleVisibility(false);
 
+		if (this.hoveringNode) {
+			this._options.onHoverLeave(e);
+			this.hoveringNode = null;
+		}
+
 		this._options.onLeave(e);
 	}
 
@@ -246,7 +251,9 @@ class CustCur {
 	_onHoverEnter(e) {
 		if (!this._enabled || !this.hoverables.includes(e.toElement) || utils.containsChild(e.toElement, e.fromElement)) return;
 
-		this._hoveringElement = e.toElement;
+		if (this.hoveringNode) this._options.onHoverLeave(e);
+
+		this.hoveringNode = e.toElement;
 
 		this._node.classList.add(this._options.classes.hover);
 
@@ -261,19 +268,14 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onHoverLeave(e) {
-		if (
-			!this._enabled ||
-			!this._hoveringElement ||
-			utils.containsChild(this._hoveringElement, e.toElement) ||
-			!this.hoverables.includes(e.fromElement)
-		)
+		if (!this._enabled || !this.hoveringNode || utils.containsChild(this.hoveringNode, e.toElement) || !this.hoverables.includes(e.fromElement))
 			return;
-
-		this._hoveringElement = null;
 
 		this._node.classList.remove(this._options.classes.hover);
 
 		this._options.onHoverLeave(e);
+
+		this.hoveringNode = null;
 	}
 
 	/**
