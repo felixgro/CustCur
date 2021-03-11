@@ -18,6 +18,8 @@ class CustCur {
 
 		this._node = this._options.node ? this._options.node : document.createElement(this._options.tag);
 
+		this._hoveringElement = null;
+
 		Object.assign(this._node.style, {
 			position: 'fixed',
 			'pointer-events': 'none',
@@ -242,7 +244,9 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onHoverEnter(e) {
-		if (!this._enabled || utils.isChildOfNodes(this.hoverables, e.fromElement)) return;
+		if (!this._enabled || !this.hoverables.includes(e.toElement) || utils.containsChild(e.toElement, e.fromElement)) return;
+
+		this._hoveringElement = e.toElement;
 
 		this._node.classList.add(this._options.classes.hover);
 
@@ -257,7 +261,15 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onHoverLeave(e) {
-		if (!this._enabled || utils.isChildOfNodes(this.hoverables, e.toElement)) return;
+		if (
+			!this._enabled ||
+			!this._hoveringElement ||
+			utils.containsChild(this._hoveringElement, e.toElement) ||
+			!this.hoverables.includes(e.fromElement)
+		)
+			return;
+
+		this._hoveringElement = null;
 
 		this._node.classList.remove(this._options.classes.hover);
 
