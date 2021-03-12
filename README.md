@@ -9,7 +9,7 @@ A lightweight, highly customizable cursor event framework for the web.
 #### Via CDN
 
 ```html
-<script src="https://unpkg.com/custcur@0.2.3/dist/bundle.js"></script>
+<script src="https://unpkg.com/custcur@0.2.4/dist/bundle.js"></script>
 ```
 
 #### Via Yarn or NPM
