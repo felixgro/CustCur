@@ -167,7 +167,7 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onEnter(e) {
-		if (!this._enabled || utils.containsChild(this._options.target, e.fromElement)) return;
+		if (!this._enabled || utils.containsChild(this._options.target, e.relatedTarget)) return;
 
 		this._toggleVisibility(true);
 
@@ -182,7 +182,7 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onLeave(e) {
-		if (!this._enabled || utils.containsChild(this._options.target, e.toElement)) return;
+		if (!this._enabled || utils.containsChild(this._options.target, e.relatedTarget, false)) return;
 
 		this._toggleVisibility(false);
 
@@ -249,11 +249,11 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onHoverEnter(e) {
-		if (!this._enabled || !this.hoverables.includes(e.toElement) || utils.containsChild(e.toElement, e.fromElement)) return;
+		if (!this._enabled || !this.hoverables.includes(e.target) || utils.containsChild(e.target, e.relatedTarget)) return;
 
 		if (this.hoveringNode) this._options.onHoverLeave(e);
 
-		this.hoveringNode = e.toElement;
+		this.hoveringNode = e.target;
 
 		this._node.classList.add(this._options.classes.hover);
 
@@ -268,8 +268,7 @@ class CustCur {
 	 * @param {MouseEvent} e
 	 */
 	_onHoverLeave(e) {
-		if (!this._enabled || !this.hoveringNode || utils.containsChild(this.hoveringNode, e.toElement) || !this.hoverables.includes(e.fromElement))
-			return;
+		if (!this._enabled || !this.hoveringNode || utils.containsChild(this.hoveringNode, e.relatedTarget)) return;
 
 		this._node.classList.remove(this._options.classes.hover);
 

@@ -49,12 +49,19 @@ const isTouchDevice = () => {
  *
  * @param {Node} parent
  * @param {Node} child
+ * @param {Boolean} allowEquals
  * @return {Boolean}
  */
-const containsChild = (parent, child) => {
+const containsChild = (parent, child, allowEquals = true) => {
 	if (!parent) return false;
+
 	parent = parent === window ? document.querySelector('html') : parent;
-	return child === parent || parent.contains(child);
+
+	if (allowEquals) {
+		return child === parent || parent.contains(child);
+	} else {
+		return parent.tagName === 'HTML' ? containsChild(parent, child) : child !== parent && parent.contains(child);
+	}
 };
 
 /**
